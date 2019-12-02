@@ -11,20 +11,31 @@ def passwordCheck():
                 if usernameEntry.get() == editedLines[0]:
                     messagebox.showerror('ERROR', 'USERNAME TAKEN')
                     exit()
+                    
     except FileNotFoundError:
         messagebox.showerror('ERROR', 'USERS.TXT WAS NOT FOUND')
         exit()
 
-    try:
-        with open('users.txt', 'a') as usersFile:
-            usersFile.write(usernameEntry.get())
-            usersFile.write(',')
-            usersFile.write(passwordEntry.get())
-            usersFile.write('\n')
-            messagebox.showinfo('SUCCESS', 'REGISTERED')
+    if usernameEntry.get().strip('\n') == '':
+        messagebox.showerror('ERROR', 'USERNAME CANNOT BE EMPTY')
+        exit()
+    elif passwordEntry.get().strip('\n') == '':
+        messagebox.showerror('ERROR', 'PASSWORD CANNOT BE EMPTY')
+        exit()
+    elif passwordEntry.get() == confirmPasswordEntry.get():
+        try:
+            with open('users.txt', 'a') as usersFile:
+                usersFile.write(usernameEntry.get())
+                usersFile.write(',')
+                usersFile.write(passwordEntry.get())
+                usersFile.write('\n')
+                messagebox.showinfo('SUCCESS', 'REGISTERED')
+                exit()
+        except FileNotFoundError:
+            messagebox.showerror('ERROR', 'USERS.TXT WAS NOT FOUND')
             exit()
-    except FileNotFoundError:
-        messagebox.showerror('ERROR', 'USERS.TXT WAS NOT FOUND')
+    elif passwordEntry.get() != confirmPasswordEntry.get():
+        messagebox.showerror('ERROR', 'PASSWORDS DO NOT MATCH')
         exit()
 
 root = Tk()
