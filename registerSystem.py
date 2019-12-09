@@ -11,7 +11,6 @@ def passwordCheck():
                 if usernameEntry.get() == editedLines[0]:
                     messagebox.showerror('ERROR', 'USERNAME TAKEN')
                     exit()
-                    
     except FileNotFoundError:
         messagebox.showerror('ERROR', 'USERS.TXT WAS NOT FOUND')
         exit()
@@ -24,13 +23,14 @@ def passwordCheck():
         exit()
     elif passwordEntry.get() == confirmPasswordEntry.get():
         try:
-            with open('users.txt', 'a') as usersFile:
-                usersFile.write(usernameEntry.get())
-                usersFile.write(',')
-                usersFile.write(passwordEntry.get())
-                usersFile.write('\n')
-                messagebox.showinfo('SUCCESS', 'REGISTERED')
-                exit()
+            usersFile = open('users.txt', 'a')
+            usersFile.write(usernameEntry.get())
+            usersFile.write(',')
+            usersFile.write(passwordEntry.get())
+            usersFile.write('\n')
+            usersFile.close()
+            messagebox.showinfo('SUCCESS', 'REGISTERED')
+            exit()
         except FileNotFoundError:
             messagebox.showerror('ERROR', 'USERS.TXT WAS NOT FOUND')
             exit()
