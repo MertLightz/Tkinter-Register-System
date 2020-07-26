@@ -13,7 +13,9 @@ def passwordCheck():
                     exit()
     except FileNotFoundError:
         messagebox.showerror('ERROR', 'USERS.TXT WAS NOT FOUND')
-        exit()
+        messagebox.showinfo('NEW FILE', 'CREATING USERS.TXT')
+        file = open('users.txt', 'w')
+        file.close()
 
     if usernameEntry.get().strip('\n') == '':
         messagebox.showerror('ERROR', 'USERNAME CANNOT BE EMPTY')
